@@ -1,6 +1,6 @@
 package dao;
 
-import com.sun.tools.javac.util.List;
+import java.util.List;
 
 public interface DAO<T> {
     void add(T t);
