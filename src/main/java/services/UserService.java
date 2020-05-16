@@ -12,6 +12,7 @@ public class UserService {
 
     public void addUser(User user){
          userDao.add(user);
+        System.out.println("dao user");
     }
 
     public int getUserId(User user){
