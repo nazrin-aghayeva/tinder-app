@@ -18,7 +18,7 @@ public class DAOUserSql implements DAO<User> {
 
     public User getByLogin(User user){
         User selected= null;
-        String SQL= "SELECT * FROM users WHERE login=?";
+        String SQL= "SELECT * FROM users WHERE email=?";
         try{
             PreparedStatement stm= connection.prepareStatement(SQL);
             stm.setString(1, user.getEmail());
@@ -44,7 +44,7 @@ public class DAOUserSql implements DAO<User> {
     public User getActiveUser(int activeUserId){
         User user=null;
         String SQL= "SELECT DISTINCT u.* FROM users u WHERE u.id!= ?" +
-                " u.id NOT in (SELECT likedUserId FROM likes WHERE likedUserId=u.id AND userId= ? n" +
+                " u.id NOT in (SELECT checkedUserId FROM checking WHERE checkedUserId=u.id AND userId= ? n" +
                 ") LIMIT 1";
         try{
             PreparedStatement stm= connection.prepareStatement(SQL);

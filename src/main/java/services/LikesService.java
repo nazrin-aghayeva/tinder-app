@@ -2,7 +2,7 @@ package services;
 
 import dao.DAOLikes;
 import dao.DAOLikes;
-import dao.DaoUsersSql;
+import dao.DAOUserSql;
 import entities.Like;
 import entities.User;
 import entities.Like;
@@ -21,12 +21,12 @@ public class LikesService {
     private int userId;
     private Connection connection;
     private DAOLikes likeDao;
-    private DaoUsersSql daoUsers;
+    private DAOUserSql daoUsers;
     private HttpServletRequest request;
     private HttpServletResponse response;
     private Freemarker freemarker = new Freemarker();
 
-    public LikesService(DAOLikes likeDao, DaoUsersSql daoUsers) {
+    public LikesService(DAOLikes likeDao, DAOUserSql daoUsers) {
         this.likeDao = likeDao;
         this.daoUsers = daoUsers;
     }
@@ -37,7 +37,7 @@ public class LikesService {
         this.request = request;
         this.response = response;
         this.likeDao = new DAOLikes(userId, connection);
-        this.daoUsers = new DaoUsersSql(connection);
+        this.daoUsers = new DAOUserSql(connection);
     }
 
     public void generateLikedPage() {
@@ -69,7 +69,7 @@ public class LikesService {
     }
 
     public User getUserToShow(int activeUserId){
-        User userToShow = daoUsers.getUserToShow(activeUserId);
+        User userToShow = daoUsers.getActiveUser(activeUserId);
         if(userToShow == null){
             likeDao.clearCheckedTable();
             return getUserToShow(activeUserId);

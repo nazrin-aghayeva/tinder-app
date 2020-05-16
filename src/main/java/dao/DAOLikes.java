@@ -21,7 +21,7 @@ public class DAOLikes {
 
     public void clearCheckedTable(){
         try {
-            String sql = "DELETE FROM tinderam_checked WHERE userId = ?";
+            String sql = "DELETE FROM checking WHERE userId = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, userId);
             stm.execute();
@@ -32,7 +32,7 @@ public class DAOLikes {
 
     public void addCheckedStatus(int checkedUserId){
         try {
-            String sql = "INSERT INTO tinderam_checked(userId,checked) VALUES (?,?)";
+            String sql = "INSERT INTO checking(userId,checkedUserId) VALUES (?,?)";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, userId);
             stm.setInt(2, checkedUserId);
