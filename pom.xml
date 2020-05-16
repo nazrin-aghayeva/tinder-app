@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.danit</groupId>
-    <artifactId>az-be4-classes</artifactId>
+    <artifactId>tinder</artifactId>
     <version>1.0</version>
 
     <build>
