@@ -1,4 +1,6 @@
 import database.DbConjunction;
+import filters.LoginFilter;
+import filters.LoginStatusFilter;
 import filters.RegistrationFilter;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
@@ -7,10 +9,8 @@ import org.eclipse.jetty.server.handler.HandlerCollection;
 import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import servlets.LikesServlet;
-import servlets.MainServlet;
-import servlets.MessagesServlet;
-import servlets.RegistrationServlet;
+import servlets.*;
+import utils.ResourceHandlerGenerator;
 
 import javax.servlet.DispatcherType;
 import java.sql.Connection;

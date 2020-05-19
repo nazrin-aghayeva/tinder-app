@@ -49,6 +49,7 @@ public class DAOUserSql implements DAO<User> {
         try{
             PreparedStatement stm= connection.prepareStatement(SQL);
             stm.setInt(1,activeUserId);
+            stm.setInt(2, activeUserId);
             ResultSet resultSet=stm.executeQuery();
 
             if (resultSet.next()){
