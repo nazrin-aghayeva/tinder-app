@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DAOLikes {
+public class DAOLikes implements DAO<Like> {
     private int userId;
     private Connection connection;
 
