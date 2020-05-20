@@ -67,7 +67,8 @@ public class DAOMessages implements DAO<Message> {
             List<Message> resultingMessagesList = new ArrayList<Message>();
             while (resultSet.next()) {
                 String string = resultSet.getInt("receiverid") == senderId ? "received" : "sent";
-                resultingMessagesList.add(new Message(resultSet.getInt("messageid"), resultSet.getInt("senderid"), resultSet.getInt("receiverid"), resultSet.getString("messagetext"), string, resultSet.getTimestamp("time")));
+                resultingMessagesList.add(new Message(resultSet.getInt("messageid"),
+                        resultSet.getInt("senderid"), resultSet.getInt("receiverid"), resultSet.getString("messagetext"), string, resultSet.getTimestamp("time")));
             }
 
             return resultingMessagesList;
