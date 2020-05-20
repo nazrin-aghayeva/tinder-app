@@ -43,8 +43,8 @@ public class DAOUserSql implements DAO<User> {
 
     public User getActiveUser(int activeUserId){
         User user=null;
-        String SQL= "SELECT DISTINCT u.* FROM users u WHERE u.id!= ?" +
-                " u.id NOT in (SELECT checkedUserId FROM checking WHERE checkedUserId=u.id AND userId= ? n" +
+        String SQL=  "SELECT * FROM users WHERE user_id != ? AND user_id NOT IN (\n" +
+                "    SELECT checkeduserid FROM checking WHERE checkeduserid = user_id AND userid = ? \n" +
                 ") LIMIT 1";
         try{
             PreparedStatement stm= connection.prepareStatement(SQL);
@@ -53,14 +53,14 @@ public class DAOUserSql implements DAO<User> {
             ResultSet resultSet=stm.executeQuery();
 
             if (resultSet.next()){
-               int id= resultSet.getInt("user_id");
+               int user_id= resultSet.getInt("user_id");
                 String name=resultSet.getString("name");
                 String surname=resultSet.getString("surname");
                 String password=resultSet.getString("password");
                 String email= resultSet.getString("email");
                 String position=resultSet.getString("position");
                 String photo_link=resultSet.getString("photo_link");
-                user= new User(id,name,surname,password,email,position,photo_link);
+                user= new User(user_id,name,surname,password,email,position,photo_link);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -87,7 +87,7 @@ public class DAOUserSql implements DAO<User> {
     @Override
     public User get(int user_id) {
         User user= null;
-        String SQL= "SELECT u.name, u.surname, u.email, u.position, u.photo_link FROM users u WHERE user_id=?";
+        String SQL= "SELECT name, surname, email, position, photo_link FROM users WHERE user_id=?";
         try {
             PreparedStatement stm = connection.prepareStatement(SQL);
             stm.setInt(1,user_id);

@@ -39,7 +39,7 @@ public class MessagesServlet extends HttpServlet {
 
         MessagesService messagesService = new MessagesService(userId, otherSideId, connection, req, resp);
         try {
-            String text = pfr.getStr("text");
+            String text = pfr.getStr("messagetext");
             messagesService.sendMessage(text);
         } catch (IllegalStateException e) {
             System.out.println("empty messages");

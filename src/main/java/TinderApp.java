@@ -41,6 +41,7 @@ public class TinderApp {
         handler.addServlet(new ServletHolder(new LoginServlet(connection)),"/login/*");
         handler.addServlet(new ServletHolder(new RegistrationServlet(connection)),"/reg/*");
         handler.addServlet(new ServletHolder(new UsersServlet(connection)),"/users/*");
+        handler.addServlet(new ServletHolder(new MessagesServlet(connection)), "/message/*");
         handler.addServlet(new ServletHolder(new LogoutServlet()),"/logout/*");
 
         handler.addFilter(LoginStatusFilter.class,"/*", EnumSet.of(DispatcherType.INCLUDE,DispatcherType.REQUEST));

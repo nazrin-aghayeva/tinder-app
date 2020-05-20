@@ -21,7 +21,7 @@ public class DAOLikes implements DAO<Like> {
 
     public void clearCheckedTable(){
         try {
-            String sql = "DELETE FROM checking WHERE userId = ?";
+            String sql = "DELETE FROM checking WHERE userid = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, userId);
             stm.execute();
@@ -32,7 +32,7 @@ public class DAOLikes implements DAO<Like> {
 
     public void addCheckedStatus(int checkedUserId){
         try {
-            String sql = "INSERT INTO checking(userId,checkedUserId) VALUES (?,?)";
+            String sql = "INSERT INTO checking(userid,checkeduserid) VALUES (?,?)";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, userId);
             stm.setInt(2, checkedUserId);
@@ -43,7 +43,7 @@ public class DAOLikes implements DAO<Like> {
     }
 
     public void add(Like item) {
-        String sql = "INSERT INTO likes(userId,likedUserId) VALUES (?,?)";
+        String sql = "INSERT INTO likes(userid,likeduserid) VALUES (?,?)";
 
         try {
             PreparedStatement stm = connection.prepareStatement(sql);
@@ -56,7 +56,7 @@ public class DAOLikes implements DAO<Like> {
     }
 
     public void remove(int id) {
-        String sql = "DELETE FROM likes WHERE userId = ? AND likedUserId = ?";
+        String sql = "DELETE FROM likes WHERE userid = ? AND likeduserid = ?";
 
         try {
             PreparedStatement stm = connection.prepareStatement(sql);
@@ -70,7 +70,7 @@ public class DAOLikes implements DAO<Like> {
 
     public Like get(int id) {
         Like like = null;
-        String sql = "SELECT * FROM likes WHERE userId = ? AND likedUserId = ?";
+        String sql = "SELECT * FROM likes WHERE userid = ? AND likeduserid = ?";
         try {
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1,userId);
@@ -78,8 +78,8 @@ public class DAOLikes implements DAO<Like> {
             ResultSet rSet = stm.executeQuery();
 
             if (rSet.next()) {
-                int userId = rSet.getInt("userId");
-                int likedUserId = rSet.getInt("likedUserId");
+                int userId = rSet.getInt("userid");
+                int likedUserId = rSet.getInt("likeduserid");
                 like = new Like(userId,likedUserId);
             }
 
@@ -91,15 +91,15 @@ public class DAOLikes implements DAO<Like> {
 
     public List<Like> getAll() {
         List<Like> likes = new ArrayList<>();
-        String sql = "SELECT * FROM likes WHERE likedUserId = ?";
+        String sql = "SELECT * FROM likes WHERE userid = ?";
         try {
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1,userId);
             ResultSet rSet = stm.executeQuery();
 
             while (rSet.next()) {
-                int userId = rSet.getInt("userId");
-                int likedUserId = rSet.getInt("likedUserId");
+                int userId = rSet.getInt("userid");
+                int likedUserId = rSet.getInt("likeduserid");
                 Like like = new Like(userId,likedUserId);
                 likes.add(like);
             }
