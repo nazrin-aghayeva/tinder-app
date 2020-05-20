@@ -39,9 +39,10 @@ public class MessagesServlet extends HttpServlet {
 
         MessagesService messagesService = new MessagesService(userId, otherSideId, connection, req, resp);
         try {
-            String text = pfr.getStr("messagetext");
+            String text = pfr.getStr("text");
             messagesService.sendMessage(text);
         } catch (IllegalStateException e) {
+            e.printStackTrace();
             System.out.println("empty messages");
         } finally {
             messagesService.generateLikedPage();
