@@ -26,7 +26,7 @@ public class DAOMessages implements DAO<Message> {
 
     public void add(Message message) {
         try {
-            java.lang.String sql = "INSERT INTO messages(senderId, receiverId, text) VALUES (?, ?, ?)";
+            java.lang.String sql = "INSERT INTO messages(senderid, receiverid, text) VALUES (?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, message.getSenderId());
             preparedStatement.setInt(2, message.getReceiverId());
@@ -43,12 +43,12 @@ public class DAOMessages implements DAO<Message> {
 
     public Message get(int messageId) {
         try {
-            java.lang.String sql = "SELECT * FROM messages WHERE messageId = ?";
+            java.lang.String sql = "SELECT * FROM messages WHERE messageid = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, messageId);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                return new Message(resultSet.getInt("messageId"), resultSet.getInt("senderId"), resultSet.getInt("receiverId"), resultSet.getString("messageText"), resultSet.getTimestamp("time"));
+                return new Message(resultSet.getInt("messageid"), resultSet.getInt("senderid"), resultSet.getInt("receiverid"), resultSet.getString("messagetext"), resultSet.getTimestamp("time"));
             }
             return null;
 
@@ -59,15 +59,15 @@ public class DAOMessages implements DAO<Message> {
 
     public List<Message> getAll() {
         try {
-            java.lang.String sql = "SELECT * FROM messages WHERE senderId = ? OR receiverId = ? ORDER BY time";
+            java.lang.String sql = "SELECT * FROM messages WHERE senderid = ? OR receiverid = ? ORDER BY time";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, senderId);
             statement.setInt(2, senderId);
             ResultSet resultSet = statement.executeQuery();
             List<Message> resultingMessagesList = new ArrayList<Message>();
             while (resultSet.next()) {
-                String string = resultSet.getInt("receiverId") == senderId ? "received" : "sent";
-                resultingMessagesList.add(new Message(resultSet.getInt("messageId"), resultSet.getInt("senderId"), resultSet.getInt("receiverId"), resultSet.getString("messageText"), string, resultSet.getTimestamp("time")));
+                String string = resultSet.getInt("receiverid") == senderId ? "received" : "sent";
+                resultingMessagesList.add(new Message(resultSet.getInt("messageid"), resultSet.getInt("senderid"), resultSet.getInt("receiverid"), resultSet.getString("messagetext"), string, resultSet.getTimestamp("time")));
             }
 
             return resultingMessagesList;
