@@ -29,7 +29,6 @@ message.onmousedown = function(event) {
             document.removeEventListener('mousemove', onMouseMove);
             message.onmouseup = null;
         };
-
     }
 
 };

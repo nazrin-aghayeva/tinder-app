@@ -38,6 +38,7 @@ public class RegistrationServlet extends HttpServlet {
         fields.add("Name");
         fields.add("Surname");
         fields.add("Image");
+        fields.add("Position");
         fields.add("Email");
 
         data.put("fields", fields);
@@ -56,14 +57,15 @@ public class RegistrationServlet extends HttpServlet {
         String name = pfr.getStr("Name");
         String surname = pfr.getStr("Surname");
         String image = pfr.getStr("Image");
+        String position = pfr.getStr("Position");
         String email = pfr.getStr("Email");
         String password = pfr.getStr("Password");
 
-        User user = new User(email,password,name,surname,image);
+        User user = new User(email,password,name,surname,image,position);
         usersService.addUser(user);
 
         cookiesService.addCookie(usersService.getUserId(user));
 
-        resp.sendRedirect("/users");
+        resp.sendRedirect("/login");
     }
 }

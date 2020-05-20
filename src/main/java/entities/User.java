@@ -36,4 +36,13 @@ public class User {
         this.surname=surname;
         this.photo_link=photo_link;
     }
+
+    public User(String email, String password, String name, String surname, String photo_link, String position) {
+        this.email=email;
+        this.password=password;
+        this.name=name;
+        this.surname=surname;
+        this.photo_link=photo_link;
+        this.position=position;
+    }
 }
