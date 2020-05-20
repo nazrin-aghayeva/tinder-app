@@ -41,12 +41,15 @@
                                     ${user.name} ${user.surname}
                                 </td>
                                 <td class="align-middle">
+                                    ${user.position}
+                                </td>
+                                <td class="align-middle">
                                     You liked this user
                                 </td>
                                 <td class="align-middle">
                                 <#--Last Login:  6/10/2017<br><small class="text-muted">5 days ago</small>-->
                                     <form action="/message" method="get">
-                                        <input type="hidden" name="user" value="${user.user_id}">
+                                        <input name="user" type="hidden"  value="${user.user_id}">
                                         <button style="cursor: pointer" type="submit">Send message</button>
                                     </form>
                                 </td>
@@ -127,8 +130,8 @@
                         </div>
                         <#--text-->
                         <form action="/message" method="post" class="col-md-11 pl-0">
-                            <input name="messagetext" style="width: 80%;" type="text" class="border-0" placeholder=" Send message"/>
                             <input name="user" type="hidden" value="${otherSideId.user_id}">
+                            <input name="text" style="width: 80%;" type="text" class="border-0" placeholder=" Send message"/>
                             <button id="send" style="cursor: pointer; position: absolute; right: 10px; top: 0; " type="submit">Send/Update</button>
                         </form>
                     </div>

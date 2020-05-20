@@ -26,7 +26,7 @@ public class DAOMessages implements DAO<Message> {
 
     public void add(Message message) {
         try {
-            java.lang.String sql = "INSERT INTO messages(senderid, receiverid, messagetext) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO messages(senderid, receiverid, messagetext) VALUES (?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, message.getSenderId());
             preparedStatement.setInt(2, message.getReceiverId());

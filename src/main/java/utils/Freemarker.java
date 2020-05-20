@@ -26,7 +26,7 @@ public class Freemarker {
             }
         }};
     }
-
+// src/main/resources/templates
     public Freemarker() {
         this("./src/main/resources/templates");
     }

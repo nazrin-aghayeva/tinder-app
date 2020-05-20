@@ -70,15 +70,16 @@ public class DAOUserSql implements DAO<User> {
 
     @Override
     public void add(User user) {
-        String SQL= "INSERT INTO users(name, surname, password, email,position,photo_link) VALUES (?,?,?,?,?)";
+        String SQL= "INSERT INTO users(name, surname, password, email,position ,photo_link) VALUES (?,?,?,?,?,?)";
         try{
             PreparedStatement statement= connection.prepareStatement(SQL);
             statement.setString(1, user.getName());
             statement.setString(2, user.getSurname());
             statement.setString(3, user.getPassword());
             statement.setString(4, user.getEmail());
-            statement.setString(5, user.getPhoto_link());
-
+            statement.setString(5, user.getPosition());
+            statement.setString(6, user.getPhoto_link());
+            statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
