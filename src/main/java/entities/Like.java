@@ -1,22 +1,16 @@
 package entities;
 
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
-
 
 public class Like {
     private int userId;
     private int likedUserId;
 
     public Like(int likedUserId) {
-        this.likedUserId=likedUserId;
+        this.likedUserId = likedUserId;
     }
 }

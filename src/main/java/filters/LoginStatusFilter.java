@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class LoginStatusFilter implements Filter {
+    private CookiesService cookiesService;
 
     public void init(FilterConfig filterConfig) throws ServletException {
 
@@ -23,12 +24,14 @@ public class LoginStatusFilter implements Filter {
         }
 
         HttpServletResponse resp = (HttpServletResponse) response;
-        CookiesService cookiesService = new CookiesService(req, resp);
+        cookiesService = new CookiesService(req, resp);
         if(cookiesService.getCookie() == null && !req.getRequestURI().matches("(/login|/reg)")){
             resp.sendRedirect("/login");
         } else{
             chain.doFilter(request,response);
         }
+
+
     }
 
     public void destroy() {

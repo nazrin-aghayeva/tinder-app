@@ -1,9 +1,9 @@
 package servlets;
 
-import dao.DAOUserSql;
+import dao.DAOUsersSql;
 import entities.User;
 import services.CookiesService;
-import services.UserService;
+import services.UsersService;
 import utils.Freemarker;
 import utils.ParameterFromRequest;
 
@@ -20,12 +20,12 @@ import java.util.List;
 public class RegistrationServlet extends HttpServlet {
     private CookiesService cookiesService;
     private final Freemarker f = new Freemarker();
-    private UserService usersService;
+    private UsersService usersService;
     private final Connection connection;
 
     public RegistrationServlet(Connection connection) {
         this.connection = connection;
-        this.usersService = new UserService(new DAOUserSql(connection));
+        this.usersService = new UsersService(new DAOUsersSql(connection));
     }
 
     @Override
@@ -38,14 +38,14 @@ public class RegistrationServlet extends HttpServlet {
         fields.add("Name");
         fields.add("Surname");
         fields.add("Image");
-        fields.add("Position");
         fields.add("Email");
+        fields.add("Position");
 
         data.put("fields", fields);
-        data.put("message", "Please sign up");
+        data.put("message", "Please Sign up");
         data.put("rout", "/reg");
 
-        f.render("form.ftl", data, resp);
+        f.render("login.ftl", data, resp);
 
     }
 
@@ -57,12 +57,13 @@ public class RegistrationServlet extends HttpServlet {
         String name = pfr.getStr("Name");
         String surname = pfr.getStr("Surname");
         String image = pfr.getStr("Image");
-        String position = pfr.getStr("Position");
-        String email = pfr.getStr("Email");
+        String login = pfr.getStr("Email");
         String password = pfr.getStr("Password");
+        String position = pfr.getStr("Position");
 
-        User user = new User(email,password,name,surname,image,position);
-        usersService.addUser(user);
+
+        User user = new User(login,password,name,surname,image,position);
+        usersService.add(user);
 
         cookiesService.addCookie(usersService.getUserId(user));
 

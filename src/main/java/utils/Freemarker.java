@@ -1,13 +1,13 @@
 package utils;
 
-import freemarker.template.Configuration;
-import freemarker.template.TemplateException;
-import freemarker.template.TemplateExceptionHandler;
+import freemarker.core.ParseException;
+import freemarker.template.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Freemarker {
@@ -26,7 +26,7 @@ public class Freemarker {
             }
         }};
     }
-// src/main/resources/templates
+
     public Freemarker() {
         this("./src/main/resources/templates");
     }

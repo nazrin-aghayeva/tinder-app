@@ -17,6 +17,9 @@
 <body class="text-center">
 
     <form class="form" action=${rout} method="post">
+        <img src="https://www.relevance.com/wp-content/uploads/2017/07/Tinder-for-Marketing.jpg"
+             class="tinder-logo" alt="Tinder App logo">
+
         <h1 class="h3 mb-3 font-weight-normal">${message}</h1>
             <#list fields as field>
                 <label for=${field} class="sr-only">${field}</label>
@@ -31,7 +34,7 @@
         <#else>
         <a href="/login">Sign in</a>
         </#if>
-        <p class="mt-5 mb-3 text-muted">&copy; Tinder 2018</p>
+        <p class="mt-5 mb-3 text-muted">&copy; Tinder 2020</p>
     </form>
 
 </body>
