@@ -33,7 +33,7 @@
                                 <td width="10">
                                     <div class="avatar-img">
                                         <img alt="no img" class="img-circle"
-                                             src="${user.photo_link}"/>  
+                                             src="${user.imgUrl}"/>  
                                     </div>
 
                                 </td>
@@ -49,7 +49,7 @@
                                 <td class="align-middle">
                                 <#--Last Login:  6/10/2017<br><small class="text-muted">5 days ago</small>-->
                                     <form action="/message" method="get">
-                                        <input name="user" type="hidden"  value="${user.user_id}">
+                                        <input type="hidden" name="user" value="${user.id}">
                                         <button style="cursor: pointer" type="submit">Send message</button>
                                     </form>
                                 </td>
@@ -77,7 +77,7 @@
                     <#--name-->
                     <div class="col-md-6 name pl-2">
                         <i class="fa fa-comment"></i>
-                        <h6 class="ml-1 mb-0">${otherSideId.name} ${otherSideId.surname}</h6>
+                        <h6 class="ml-1 mb-0">${counterpart.name} ${counterpart.surname}</h6>
                     </div>
                         <#--cross-->
                     <div class="col-md-6 options text-right pr-0">
@@ -102,21 +102,20 @@
                             <#if message.status == "sent">
                         <li class="send-msg float-right mb-2">
                             <p class="pt-1 pb-1 pl-2 pr-2 m-0 rounded">
-                                ${message.messagetext}
+                                ${message.text}
                             </p>
-                            <span class="send-msg-time">${message.time}</span>
                         </li>
                             <#--receive message-->
                             <#else>
                         <li class="receive-msg float-left mb-2">
                             <div class="sender-img">
-                                <img src="${otherSideId.photo_link}" alt="photo" class="float-left">
+                                <img src="${counterpart.imgUrl}" alt="photo" class="float-left">
                             </div>
                             <div class="receive-msg-desc float-left ml-2">
                                 <p class="bg-white m-0 pt-1 pb-1 pl-2 pr-2 rounded">
-                                    ${message.messagetext}
+                                    ${message.text}
                                 </p>
-                                <span class="receive-msg-time">${otherSideId.name}, ${message.time}</span>
+                                <span class="receive-msg-time">${counterpart.name}</span>
                             </div>
                         </li>
                             </#if>
@@ -130,8 +129,8 @@
                         </div>
                         <#--text-->
                         <form action="/message" method="post" class="col-md-11 pl-0">
-                            <input name="user" type="hidden" value="${otherSideId.user_id}">
                             <input name="text" style="width: 80%;" type="text" class="border-0" placeholder=" Send message"/>
+                            <input name="user" type="hidden" value="${counterpart.id}">
                             <button id="send" style="cursor: pointer; position: absolute; right: 10px; top: 0; " type="submit">Send/Update</button>
                         </form>
                     </div>
