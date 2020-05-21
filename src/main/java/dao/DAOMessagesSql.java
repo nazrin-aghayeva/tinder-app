@@ -2,35 +2,32 @@ package dao;
 
 import entities.Message;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DAOMessages implements DAO<Message> {
+public class DAOMessagesSql implements DAO<Message> {
 
     private Connection connection;
     private int senderId;
 
 
-    public DAOMessages(Connection connection, int senderId) {
+    public DAOMessagesSql(Connection connection, int senderId) {
         this.connection = connection;
         this.senderId = senderId;
     }
 
-    public DAOMessages(Connection connection) {
+    public DAOMessagesSql(Connection connection) {
         this.connection = connection;
     }
 
     public void add(Message message) {
         try {
-            String sql = "INSERT INTO messages(senderid, receiverid, messagetext) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO messages(senderId, receiverId, text) VALUES (?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, message.getSenderId());
             preparedStatement.setInt(2, message.getReceiverId());
-            preparedStatement.setString(3, message.getMessageText());
+            preparedStatement.setString(3, message.getText());
             preparedStatement.execute();
         } catch (SQLException e) {
             throw new IllegalStateException("Something went wrong");
@@ -43,12 +40,12 @@ public class DAOMessages implements DAO<Message> {
 
     public Message get(int messageId) {
         try {
-            java.lang.String sql = "SELECT * FROM messages WHERE messageid = ?";
+            String sql = "SELECT * FROM messages WHERE messageId = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, messageId);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                return new Message(resultSet.getInt("messageid"), resultSet.getInt("senderid"), resultSet.getInt("receiverid"), resultSet.getString("messagetext"), resultSet.getTimestamp("time"));
+                return new Message(resultSet.getInt("messageId"), resultSet.getInt("senderId"), resultSet.getInt("receiverId"), resultSet.getString("text"));
             }
             return null;
 
@@ -59,23 +56,22 @@ public class DAOMessages implements DAO<Message> {
 
     public List<Message> getAll() {
         try {
-            java.lang.String sql = "SELECT * FROM messages WHERE senderid = ? OR receiverid = ? ORDER BY time";
+            String sql = "SELECT * FROM messages WHERE senderId = ? OR receiverId = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, senderId);
             statement.setInt(2, senderId);
             ResultSet resultSet = statement.executeQuery();
             List<Message> resultingMessagesList = new ArrayList<Message>();
             while (resultSet.next()) {
-                String string = resultSet.getInt("receiverid") == senderId ? "received" : "sent";
-                resultingMessagesList.add(new Message(resultSet.getInt("messageid"),
-                        resultSet.getInt("senderid"), resultSet.getInt("receiverid"), resultSet.getString("messagetext"), string, resultSet.getTimestamp("time")));
+                String string = resultSet.getInt("receiverId") == senderId ? "received" : "sent";
+                resultingMessagesList.add(new Message(resultSet.getInt("messageId"), resultSet.getInt("senderId"), resultSet.getInt("receiverId"), resultSet.getString("text"), string));
             }
 
             return resultingMessagesList;
 
 
         } catch (SQLException e) {
-            throw new IllegalStateException("Smth went wrong");
+            throw new IllegalStateException("Something went wrong");
         }
     }
 }

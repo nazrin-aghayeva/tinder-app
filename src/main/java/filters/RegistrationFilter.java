@@ -1,9 +1,9 @@
 package filters;
 
-import dao.DAOUserSql;
+import dao.DAOUsersSql;
 import entities.User;
 import org.eclipse.jetty.http.HttpMethod;
-import services.UserService;
+import services.UsersService;
 import utils.Freemarker;
 import utils.ParameterFromRequest;
 
@@ -15,13 +15,13 @@ import java.sql.Connection;
 import java.util.HashMap;
 
 public class RegistrationFilter implements Filter {
-    private UserService usersService;
+    private UsersService usersService;
     private Freemarker f = new Freemarker();
     private final Connection connection;
 
     public RegistrationFilter(Connection connection) {
         this.connection = connection;
-        this.usersService = new UserService(new DAOUserSql(connection));
+        this.usersService = new UsersService(new DAOUsersSql(connection));
     }
 
     @Override
@@ -50,18 +50,18 @@ public class RegistrationFilter implements Filter {
                 pfr.getStr("Surname");
                 pfr.getStr("Image");
 
-                String email = pfr.getStr("Email");
+                String login = pfr.getStr("Email");
                 String password = pfr.getStr("Password");
-                User user = new User(email, password);
+                User user = new User(login, password);
 
-                if (usersService.loggedUser(user)) {
+                if (usersService.checkUserByLogin(user)) {
                     throw new Exception("Such user exists");
                 }
                 chain.doFilter(request, response);
             } catch (Exception e) {
                 data.put("message", e.getMessage());
                 data.put("rout","/reg");
-                f.render("fail.ftl", data,(HttpServletResponse) response);
+                f.render("noregistr.ftl", data,(HttpServletResponse) response);
             }
         } else {
             chain.doFilter(request, response);
@@ -73,4 +73,5 @@ public class RegistrationFilter implements Filter {
     @Override
     public void destroy() {
 
-    }}
+    }
+}

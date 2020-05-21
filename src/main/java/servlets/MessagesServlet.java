@@ -25,8 +25,8 @@ public class MessagesServlet extends HttpServlet {
         cookiesService = new CookiesService(req, resp);
         int userId = Integer.parseInt(cookiesService.getCookie().getValue());
         ParameterFromRequest pfr = new ParameterFromRequest(req);
-        int otherSideId = pfr.getInt("user");
-        MessagesService messagesService = new MessagesService(userId, otherSideId, connection, req, resp);
+        int counterpartId = pfr.getInt("user");
+        MessagesService messagesService = new MessagesService(userId, counterpartId, connection, req, resp);
         messagesService.generateLikedPage();
     }
 
@@ -35,19 +35,17 @@ public class MessagesServlet extends HttpServlet {
         cookiesService = new CookiesService(req, resp);
         int userId = Integer.parseInt(cookiesService.getCookie().getValue());
         ParameterFromRequest pfr = new ParameterFromRequest(req);
-        int otherSideId = pfr.getInt("user");
+        int counterpartId = pfr.getInt("user");
 
-        MessagesService messagesService = new MessagesService(userId, otherSideId, connection, req, resp);
+        MessagesService messagesService = new MessagesService(userId, counterpartId, connection, req, resp);
         try {
             String text = pfr.getStr("text");
             messagesService.sendMessage(text);
         } catch (IllegalStateException e) {
-            e.printStackTrace();
-            System.out.println("empty messages");
+            System.out.println("empty message");
         } finally {
             messagesService.generateLikedPage();
         }
 
     }
 }
-

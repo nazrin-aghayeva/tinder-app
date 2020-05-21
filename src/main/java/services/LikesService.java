@@ -1,11 +1,9 @@
 package services;
 
-import dao.DAOLikes;
-import dao.DAOLikes;
-import dao.DAOUserSql;
+import dao.DAOLikesSql;
+import dao.DAOUsersSql;
 import entities.Like;
 import entities.User;
-import entities.Like;
 import utils.Freemarker;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,13 +18,13 @@ public class LikesService {
 
     private int userId;
     private Connection connection;
-    private DAOLikes likeDao;
-    private DAOUserSql daoUsers;
+    private DAOLikesSql likeDao;
+    private DAOUsersSql daoUsers;
     private HttpServletRequest request;
     private HttpServletResponse response;
     private Freemarker freemarker = new Freemarker();
 
-    public LikesService(DAOLikes likeDao, DAOUserSql daoUsers) {
+    public LikesService(DAOLikesSql likeDao, DAOUsersSql daoUsers) {
         this.likeDao = likeDao;
         this.daoUsers = daoUsers;
     }
@@ -36,8 +34,8 @@ public class LikesService {
         this.connection = connection;
         this.request = request;
         this.response = response;
-        this.likeDao = new DAOLikes(userId, connection);
-        this.daoUsers = new DAOUserSql(connection);
+        this.likeDao = new DAOLikesSql(userId, connection);
+        this.daoUsers = new DAOUsersSql(connection);
     }
 
     public void generateLikedPage() {
@@ -69,7 +67,7 @@ public class LikesService {
     }
 
     public User getUserToShow(int activeUserId){
-        User userToShow = daoUsers.getActiveUser(activeUserId);
+        User userToShow = daoUsers.getUserToShow(activeUserId);
         if(userToShow == null){
             likeDao.clearCheckedTable();
             return getUserToShow(activeUserId);

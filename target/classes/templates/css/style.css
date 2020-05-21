@@ -21,6 +21,13 @@ body {
   position: relative;
 }
 
+a{
+  color: #dc3545;
+}
+a:hover{
+  color: #1b1e21;
+  text-decoration: none;
+}
 .block{
   width: 100%;
   display: flex;
@@ -33,6 +40,14 @@ body {
   text-decoration: none;
 }
 
+.tinder-logo{
+  width: 200px;
+  margin-left: 45px;
+  height: auto;
+  display: flex;
+  border-radius: 50%;
+  justify-content: center;
+}
 
 .or{
   width: 100%;

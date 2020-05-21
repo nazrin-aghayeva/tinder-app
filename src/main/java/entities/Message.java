@@ -2,42 +2,27 @@ package entities;
 
 import lombok.*;
 
-import java.util.Date;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
-@Getter
 
-public class Message {
+public class Message implements Identifiable {
     private int id;
     private int senderId;
     private int receiverId;
-    private String messageText;
-    private Date time;
+    private String text;
     private String status;
 
-    public Message(int id, int senderId, int receiverId, String messageText, Date time) {
+    public Message(int id, int senderId, int receiverId, String text) {
         this.id = id;
         this.senderId = senderId;
         this.receiverId = receiverId;
-        this.messageText = messageText;
-        this.time = time;
+        this.text = text;
     }
 
-    public Message(int id, int senderId, int receiverId, String messageText, String status, Date time) {
+    public Message(int senderId, int receiverId, String text) {
         this.senderId = senderId;
         this.receiverId = receiverId;
-        this.messageText = messageText;
-        this.status = status;
-        this.time = time;
+        this.text = text;
     }
-
-    public Message(int senderId, int receiverId, String messageText) {
-        this.senderId = senderId;
-        this.receiverId = receiverId;
-        this.messageText = messageText;
-    }
-
 }

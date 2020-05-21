@@ -1,9 +1,9 @@
 package servlets;
 
-import dao.DAOUserSql;
+import dao.DAOUsersSql;
 import entities.User;
 import services.CookiesService;
-import services.UserService;
+import services.UsersService;
 import utils.Freemarker;
 import utils.ParameterFromRequest;
 
@@ -20,12 +20,12 @@ import java.util.List;
 public class LoginServlet extends HttpServlet {
     private CookiesService cookiesService;
     private final Freemarker f = new Freemarker();
-    private UserService userService;
+    private UsersService usersService;
     private final Connection connection;
 
     public LoginServlet(Connection connection) {
         this.connection = connection;
-        this.userService = new UserService(new DAOUserSql(connection));
+        this.usersService = new UsersService(new DAOUsersSql(connection));
     }
 
     @Override
@@ -37,10 +37,10 @@ public class LoginServlet extends HttpServlet {
         fields.add("Email");
 
         data.put("fields", fields);
-        data.put("message", "Please sign in");
+        data.put("message", "Please Sign in");
         data.put("rout", "/login");
 
-        f.render("form.ftl", data, resp);
+        f.render("login.ftl", data, resp);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class LoginServlet extends HttpServlet {
 
         User user = new User(login,password);
 
-        cookiesService.addCookie(userService.getUserId(user));
+        cookiesService.addCookie(usersService.getUserId(user));
 
         resp.sendRedirect("/users");
     }

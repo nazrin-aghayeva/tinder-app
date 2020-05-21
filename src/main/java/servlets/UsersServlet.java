@@ -1,7 +1,7 @@
 package servlets;
 
-import dao.DAOLikes;
-import dao.DAOUserSql;
+import dao.DAOLikesSql;
+import dao.DAOUsersSql;
 import entities.Like;
 import entities.User;
 import services.CookiesService;
@@ -31,7 +31,7 @@ public class UsersServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         cookiesService = new CookiesService(req, resp);
         int activeUserId = Integer.parseInt(cookiesService.getCookie().getValue());
-        likesService = new LikesService(new DAOLikes(activeUserId,connection),new DAOUserSql(connection));
+        likesService = new LikesService(new DAOLikesSql(activeUserId,connection),new DAOUsersSql(connection));
 
         User user = likesService.getUserToShow(activeUserId);
 
@@ -47,7 +47,7 @@ public class UsersServlet extends HttpServlet {
         if(likesService == null){
             cookiesService = new CookiesService(req, resp);
             int activeUserId = Integer.parseInt(cookiesService.getCookie().getValue());
-            likesService = new LikesService(new DAOLikes(activeUserId,connection),new DAOUserSql(connection));
+            likesService = new LikesService(new DAOLikesSql(activeUserId,connection),new DAOUsersSql(connection));
         }
 
         ParameterFromRequest pfr = new ParameterFromRequest(req);

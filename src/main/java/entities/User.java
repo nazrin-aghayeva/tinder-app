@@ -1,48 +1,63 @@
 package entities;
 import lombok.*;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-@EqualsAndHashCode
-@ToString
-public class User {
-    private int user_id;
+
+public class User implements Identifiable {
+    private int id;
+    private String login;
+    private String password;
     private String name;
     private String surname;
-    private String password;
-    private String email;
+    private String imgUrl;
     private String position;
-    private String photo_link;
 
-    public User(int user_id, String name, String surname, String email, String position, String photo_link) {
-        this.user_id= user_id;
-        this.name=name;
-        this.surname=surname;
-        this.email=email;
-        this.position=position;
-        this.photo_link=photo_link;
+    public User(String login, String password){
+        this.login = login;
+        this.password = password;
     }
 
-    public User( String email,String password){
-        this.email = email;
-        this.password=password;
+    public User(int id, String login, String name, String surname, String imgUrl){
+        this.id = id;
+        this.login = login;
+        this.name = name;
+        this.surname = surname;
+        this.imgUrl = imgUrl;
     }
 
-    public User(String email, String password, String name, String surname, String photo_link) {
-        this.email=email;
-        this.password=password;
-        this.name=name;
-        this.surname=surname;
-        this.photo_link=photo_link;
+    public User(String login, String password, String name, String surname) {
+        this(login, password);
+        this.name = name;
+        this.surname = surname;
     }
 
-    public User(String email, String password, String name, String surname, String photo_link, String position) {
-        this.email=email;
-        this.password=password;
-        this.name=name;
-        this.surname=surname;
-        this.photo_link=photo_link;
-        this.position=position;
+    public User(String login, String password, String name, String surname, String imgUrl) {
+        this(login, password, name, surname);
+        this.imgUrl = imgUrl;
+    }
+
+    public User(String login, String password, String name, String surname, String imgUrl, String position) {
+        this.login = login;
+        this.password = password;
+        this.name = name;
+        this.surname = surname;
+        this.imgUrl = imgUrl;
+        this.position = position;
+    }
+
+    public User(int id, String login, String name, String surname, String imgUrl, String position) {
+        this.id=id;
+        this.login = login;
+        this.name = name;
+        this.surname = surname;
+        this.imgUrl = imgUrl;
+        this.position = position;
+    }
+
+    @Override
+    public int getId() {
+        return this.id;
     }
 }
