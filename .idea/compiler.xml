@@ -8,11 +8,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="az-be4-classes" />
-        <module name="TinderAppTest" />
+        <module name="TinderApp" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="heroku7" target="8" />
       <module name="TinderAppMain" target="8" />
+      <module name="TinderAppTest" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>
