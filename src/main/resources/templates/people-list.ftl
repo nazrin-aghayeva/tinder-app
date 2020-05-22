@@ -22,7 +22,7 @@
         <div class="col-8 offset-2">
             <div class="panel panel-default user_panel">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Liked users</h3>
+                    <h3 class="panel-title">Liked Users</h3>
                 </div>
                 <div class="panel-body">
                     <div class="table-container">
@@ -77,7 +77,7 @@
                     <#--name-->
                     <div class="col-md-6 name pl-2">
                         <i class="fa fa-comment"></i>
-                        <h6 class="ml-1 mb-0">${counterpart.name} ${counterpart.surname}</h6>
+                        <h6 class="ml-1 mb-0">${otherSide.name} ${otherSide.surname}</h6>
                     </div>
                         <#--cross-->
                     <div class="col-md-6 options text-right pr-0">
@@ -109,13 +109,13 @@
                             <#else>
                         <li class="receive-msg float-left mb-2">
                             <div class="sender-img">
-                                <img src="${counterpart.imgUrl}" alt="photo" class="float-left">
+                                <img src="${otherSide.imgUrl}" alt="photo" class="float-left">
                             </div>
                             <div class="receive-msg-desc float-left ml-2">
                                 <p class="bg-white m-0 pt-1 pb-1 pl-2 pr-2 rounded">
                                     ${message.text}
                                 </p>
-                                <span class="receive-msg-time">${counterpart.name}</span>
+                                <span class="receive-msg-time">${otherSide.name}</span>
                             </div>
                         </li>
                             </#if>
@@ -130,7 +130,7 @@
                         <#--text-->
                         <form action="/message" method="post" class="col-md-11 pl-0">
                             <input name="text" style="width: 80%;" type="text" class="border-0" placeholder=" Send message"/>
-                            <input name="user" type="hidden" value="${counterpart.id}">
+                            <input name="user" type="hidden" value="${otherSide.id}">
                             <button id="send" style="cursor: pointer; position: absolute; right: 10px; top: 0; " type="submit">Send/Update</button>
                         </form>
                     </div>

@@ -34,9 +34,6 @@ public class DAOMessagesSql implements DAO<Message> {
         }
     }
 
-    public void remove(int id) {
-        throw new IllegalStateException("Method is not supplied by this implementation");
-    }
 
     public Message get(int messageId) {
         try {
@@ -74,4 +71,9 @@ public class DAOMessagesSql implements DAO<Message> {
             throw new IllegalStateException("Something went wrong");
         }
     }
+
+    public void remove(int id) {
+        throw new IllegalStateException("Method is not supplied by this implementation");
+    }
+
 }

@@ -66,9 +66,6 @@ public class DAOUsersSql implements DAO<User> {
         }
     }
 
-    public void remove(int id) {
-        throw new IllegalStateException("Shouldn't be implemented");
-    }
 
     public User getByLogin(User user) {
         User result = null;
@@ -122,6 +119,11 @@ public class DAOUsersSql implements DAO<User> {
         return user;
 
     }
+
+    public void remove(int id) {
+        throw new IllegalStateException("Shouldn't be implemented");
+    }
+
 
     @Override
     public List<User> getAll() {
