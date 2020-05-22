@@ -27,7 +27,7 @@ public class App {
         String webPort = System.getenv("PORT");
 
         if(webPort == null || webPort.isEmpty()) {
-            webPort = "9090";
+            webPort = "9091";
         }
 
         ServletContextHandler handler = new ServletContextHandler();

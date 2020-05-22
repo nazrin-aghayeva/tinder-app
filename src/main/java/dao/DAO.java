@@ -2,9 +2,9 @@ package dao;
 
 import java.util.List;
 
-public interface DAO<T> {
-    void add(T item);
+public interface DAO<A> {
+    void add(A a);
     void remove(int id);
-    T get(int id);
-    List<T> getAll();
+    A get(int id);
+    List<A> getAll();
 }
