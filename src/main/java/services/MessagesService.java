@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 public class MessagesService {
     private final int userId;
-    private final int counterpartId;
+    private final int otherSideId;
     private Connection connection;
     private DAO<Message> messageDAO;
     private DAO<User> userDAO;
@@ -28,9 +28,9 @@ public class MessagesService {
     private HttpServletResponse response;
     private Freemarker freemarker = new Freemarker();
 
-    public MessagesService(int userId, int counterpartId, Connection connection, HttpServletRequest request, HttpServletResponse response) {
+    public MessagesService(int userId, int otherSideId, Connection connection, HttpServletRequest request, HttpServletResponse response) {
         this.userId = userId;
-        this.counterpartId = counterpartId;
+        this.otherSideId = otherSideId;
         this.connection = connection;
         this.messageDAO = new DAOMessagesSql(connection, userId);
         this.userDAO = new DAOUsersSql(connection);
@@ -40,14 +40,14 @@ public class MessagesService {
     }
 
     public void sendMessage(String text) {
-        messageDAO.add(new Message(userId, counterpartId, text));
+        messageDAO.add(new Message(userId, otherSideId, text));
     }
 
 
     public void generateLikedPage() {
         Map<String, Object> input = new HashMap<>();
         input.put("messages", 1);
-        input.put("counterpart", userDAO.get(counterpartId));
+        input.put("otherSide", userDAO.get(otherSideId));
         input.put("messageList", getFilteredMessages());
         input.put("users", getLikedUsersList(likeDAO.getAll()));
         freemarker.render("people-list.ftl", input, response);
@@ -55,10 +55,16 @@ public class MessagesService {
 
 
     private List<Message> getFilteredMessages() {
-        return messageDAO.getAll().stream().filter(e -> e.getSenderId() == counterpartId || e.getReceiverId() == counterpartId).collect(Collectors.toList());
+        return messageDAO.getAll()
+                .stream()
+                .filter(e -> e.getSenderId() == otherSideId || e.getReceiverId() == otherSideId)
+                .collect(Collectors.toList());
     }
 
     private List<User> getLikedUsersList(List<Like> likes) {
-        return likes.stream().map(e -> userDAO.get(e.getLikedUserId())).collect(Collectors.toList());
+        return likes
+                .stream()
+                .map(e -> userDAO.get(e.getLikedUserId()))
+                .collect(Collectors.toList());
     }
 }
