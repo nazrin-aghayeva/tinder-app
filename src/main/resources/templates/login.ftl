@@ -18,7 +18,7 @@
 
     <form class="form" action=${rout} method="post">
         <img src="https://www.relevance.com/wp-content/uploads/2017/07/Tinder-for-Marketing.jpg"
-             class="tinder-logo" alt="Tinder App logo">
+             class="tinder-logo" alt="Tinder org.tinder.app.App logo">
 
         <h1 class="h3 mb-3 font-weight-normal">${message}</h1>
             <#list fields as field>
