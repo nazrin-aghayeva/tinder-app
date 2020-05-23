@@ -13,6 +13,8 @@ public class User implements Identifiable {
     private String surname;
     private String imgUrl;
     private String position;
+    private String gender;
+
 
     public User(String login, String password){
         this.login = login;
@@ -54,6 +56,26 @@ public class User implements Identifiable {
         this.surname = surname;
         this.imgUrl = imgUrl;
         this.position = position;
+    }
+
+    public User(int id, String name, String surname, String login, String imgUrl, String position, String gender) {
+        this.id=id;
+        this.login = login;
+        this.name = name;
+        this.surname = surname;
+        this.imgUrl = imgUrl;
+        this.position = position;
+        this.gender = gender;
+    }
+
+    public User(String login, String password, String name, String surname, String image, String position, String gender) {
+        this.login = login;
+        this.password=password;
+        this.name = name;
+        this.surname = surname;
+        this.imgUrl = image;
+        this.position = position;
+        this.gender = gender;
     }
 
     @Override

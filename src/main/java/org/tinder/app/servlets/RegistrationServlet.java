@@ -40,6 +40,7 @@ public class RegistrationServlet extends HttpServlet {
         fields.add("Image");
         fields.add("Email");
         fields.add("Position");
+        fields.add("Gender");
 
         data.put("fields", fields);
         data.put("message", "Please Sign up");
@@ -60,9 +61,10 @@ public class RegistrationServlet extends HttpServlet {
         String login = pfr.getStr("Email");
         String password = pfr.getStr("Password");
         String position = pfr.getStr("Position");
+        String gender = pfr.getStr("Gender");
 
 
-        User user = new User(login,password,name,surname,image,position);
+        User user = new User(login,password,name,surname,image,position,gender);
         usersService.add(user);
 
         cookiesService.addCookie(usersService.getUserId(user));
