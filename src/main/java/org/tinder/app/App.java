@@ -3,6 +3,7 @@ package org.tinder.app;
 import org.tinder.app.db.DbConnection;
 import org.tinder.app.filters.LoginStatusFilter;
 import org.tinder.app.filters.RegistrationFilter;
+import org.tinder.app.flyway.DbSetup;
 import org.tinder.app.servlets.*;
 import org.eclipse.jetty.server.Handler;
 import org.tinder.app.filters.LoginFilter;
@@ -23,6 +24,11 @@ public class App {
 
 
     public static void main(String[] args) throws Exception {
+
+        DbSetup.migrate(
+                "jdbc:postgresql://ec2-52-207-25-133.compute-1.amazonaws.com:5432/d586nu2uql7581",
+                "cpwtvtnlbkxxbn",
+                "4b7acde75355e95e887da94d04ff9109ecacc6999d1ce86d54224b162e2273ca");
 
         Connection connection = new DbConnection().connection();
 
