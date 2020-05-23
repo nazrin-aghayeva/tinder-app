@@ -1,7 +1,6 @@
 package org.tinder.app.dao;
 
 import java.util.List;
-
 public interface DAO<A> {
     void add(A a);
     void remove(int id);
