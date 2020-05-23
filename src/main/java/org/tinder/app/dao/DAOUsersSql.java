@@ -1,16 +1,19 @@
 package org.tinder.app.dao;
 
+import org.tinder.app.entities.Like;
 import org.tinder.app.entities.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DAOUsersSql implements DAO<User> {
 
     private Connection connection;
+    private int userId;
 
     public DAOUsersSql(Connection connection) {
         this.connection = connection;
@@ -37,8 +40,9 @@ public class DAOUsersSql implements DAO<User> {
                 String password = rSet.getString("password");
                 String imgUrl = rSet.getString("imgUrl");
                 String position = rSet.getString("position");
+                String gender = rSet.getString("gender");
 
-                result = new User(id, login, password, name, surname, imgUrl,position);
+                result = new User(id, login, password, name, surname, imgUrl,position,gender);
             }
 
         } catch (SQLException e) {
@@ -50,7 +54,7 @@ public class DAOUsersSql implements DAO<User> {
     }
 
     public void add(User user) {
-        String sql = "INSERT INTO users(login, password, name, surname,imgUrl,position) VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT INTO users(login, password, name, surname,imgUrl,position,gender) VALUES (?,?,?,?,?,?,?)";
 
         try {
             PreparedStatement stm = connection.prepareStatement(sql);
@@ -60,6 +64,7 @@ public class DAOUsersSql implements DAO<User> {
             stm.setString(4, user.getSurname());
             stm.setString(5, user.getImgUrl());
             stm.setString(6, user.getPosition());
+            stm.setString(7, user.getGender());
             stm.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -83,8 +88,9 @@ public class DAOUsersSql implements DAO<User> {
                 String password = rSet.getString("password");
                 String imgUrl = rSet.getString("imgUrl");
                 String position = rSet.getString("position");
+                String gender = rSet.getString("gender");
 
-                result = new User(id, login, password, name, surname, imgUrl,position);
+                result = new User(id, login, password, name, surname, imgUrl,position,gender);
             }
 
         } catch (SQLException e) {
@@ -96,7 +102,7 @@ public class DAOUsersSql implements DAO<User> {
 
     public User get(int id) {
         User user = null;
-        String sql = "SELECT users.name, users.surname,users.login,users.imgUrl,users.position FROM users WHERE id = ?";
+        String sql = "SELECT users.name, users.surname,users.login,users.imgUrl,users.position,users.gender FROM users WHERE id = ?";
         try {
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, id);
@@ -108,8 +114,9 @@ public class DAOUsersSql implements DAO<User> {
                 String login = rSet.getString("login");
                 String imgUrl = rSet.getString("imgUrl");
                 String position = rSet.getString("position");
+                String gender = rSet.getString("gender");
 
-                user = new User(id, login, name, surname, imgUrl,position);
+                user = new User(id,  name, surname,login, imgUrl,position,gender);
             }
 
         } catch (SQLException e) {
@@ -125,8 +132,29 @@ public class DAOUsersSql implements DAO<User> {
     }
 
 
-    @Override
     public List<User> getAll() {
-        throw new IllegalStateException("Shouldn't be implemented");
+        List<User> users = new ArrayList<>();
+        String sql = "SELECT users.name, users.surname,users.login,users.imgUrl,users.position,users.gender FROM users WHERE id = ?";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1,userId);
+            ResultSet rSet = stm.executeQuery();
+
+            while (rSet.next()) {
+                int id = rSet.getInt("id");
+                String name = rSet.getString("name");
+                String surname = rSet.getString("surname");
+                String login = rSet.getString("login");
+                String imgUrl = rSet.getString("imgUrl");
+                String position = rSet.getString("position");
+                String gender = rSet.getString("gender");
+                User user = new User(id,name,surname,login,imgUrl,position,gender);
+                users.add(user);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
     }
 }

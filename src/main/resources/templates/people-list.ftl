@@ -44,6 +44,9 @@
                                     ${user.position}
                                 </td>
                                 <td class="align-middle">
+                                    ${user.gender}
+                                </td>
+                                <td class="align-middle">
                                     You liked this user
                                 </td>
                                 <td class="align-middle">
