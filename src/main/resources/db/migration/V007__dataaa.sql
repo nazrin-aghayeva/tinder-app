@@ -1,0 +1,2 @@
+DELETE FROM users WHERE id='19';
+DELETE FROM users WHERE id='20';
