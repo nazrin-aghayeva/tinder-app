@@ -1,0 +1,2 @@
+INSERT INTO public.users (id, name, surname, login, password, imgurl, position, gender) VALUES (34, 'Jason', 'Statham', 'jason@gmail.com', 'jason12345', 'https://i.pinimg.com/originals/9e/7a/ba/9e7abab4e9ad6d204973d9cd0d27e386.jpg', 'Actor', 'male');
+INSERT INTO public.users (id, name, surname, login, password, imgurl, position, gender) VALUES (35, 'Sylvester', 'Stallone', 'sylvester@gmail.com', 'sylv12345', 'https://c.tribune.com.pk/2019/10/syl-1570530939.jpg', 'Actor', 'male');
