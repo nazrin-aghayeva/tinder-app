@@ -19,7 +19,7 @@ public class DAOUsersSql implements DAO<User> {
         this.connection = connection;
     }
 
-    public User getUserToShow(int activeUserId) {
+    public User getActiveUser(int activeUserId) {
         User result = null;
 
         String sql = "SELECT * FROM users WHERE id != ? AND id NOT IN (\n" +

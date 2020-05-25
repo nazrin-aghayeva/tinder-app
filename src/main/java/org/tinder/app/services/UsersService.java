@@ -14,16 +14,15 @@ public class  UsersService {
         return userDao.getByLogin(user).getId();
     }
 
-    public boolean checkUserByLogin(User user){
-        return userDao.getByLogin(user) != null;
-    }
-
     public boolean checkUser(User user){
         User res = userDao.getByLogin(user);
         return res != null && res.getPassword().equals(user.getPassword());
     }
 
 
+    public boolean checkUserByLogin(User user){
+        return userDao.getByLogin(user) != null;
+    }
 
     public void add(User item) {
         userDao.add(item);

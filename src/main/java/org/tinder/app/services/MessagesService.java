@@ -54,17 +54,18 @@ public class MessagesService {
     }
 
 
-    private List<Message> getFilteredMessages() {
-        return messageDAO.getAll()
-                .stream()
-                .filter(e -> e.getSenderId() == otherSideId || e.getReceiverId() == otherSideId)
-                .collect(Collectors.toList());
-    }
-
     private List<User> getLikedUsersList(List<Like> likes) {
         return likes
                 .stream()
                 .map(e -> userDAO.get(e.getLikedUserId()))
+                .collect(Collectors.toList());
+    }
+
+
+    private List<Message> getFilteredMessages() {
+        return messageDAO.getAll()
+                .stream()
+                .filter(e -> e.getSenderId() == otherSideId || e.getReceiverId() == otherSideId)
                 .collect(Collectors.toList());
     }
 }

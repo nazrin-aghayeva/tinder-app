@@ -33,7 +33,7 @@ public class UsersServlet extends HttpServlet {
         int activeUserId = Integer.parseInt(cookiesService.getCookie().getValue());
         likesService = new LikesService(new DAOLikesSql(activeUserId,connection),new DAOUsersSql(connection));
 
-        User user = likesService.getUserToShow(activeUserId);
+        User user = likesService.getActiveUser(activeUserId);
 
         HashMap<String, Object> data = new HashMap<>();
 

@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class LoginStatusFilter implements Filter {
+public class StatusFilter implements Filter {
     private CookiesService cookiesService;
 
     public void init(FilterConfig filterConfig) throws ServletException {

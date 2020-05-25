@@ -11,14 +11,14 @@ public class ParameterFromRequest {
 
     public int getInt(String name) {
         if(req.getParameter(name) == null || req.getParameter(name).equals("")){
-            throw new IllegalStateException(String.format("Parameter %s missing",name));
+            throw new IllegalStateException("Parameter "+name+" missing");
         }
         return Integer.parseInt(req.getParameter(name));
     }
 
     public String getStr(String name) {
         if(req.getParameter(name) == null || req.getParameter(name).equals("")){
-            throw new IllegalStateException(String.format("Parameter %s missing",name));
+            throw new IllegalStateException("Parameter "+name+" missing");
         }
         return req.getParameter(name);
 
