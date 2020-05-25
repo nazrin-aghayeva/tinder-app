@@ -20,16 +20,6 @@ public class DAOLikesSql implements DAO<Like> {
         this.connection = connection;
     }
 
-    public void clearCheckedTable(){
-        try {
-            String sql = "DELETE FROM checked WHERE userId = ?";
-            PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setInt(1, userId);
-            stm.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void addCheckedStatus(int checkedUserId){
         try {
@@ -40,6 +30,17 @@ public class DAOLikesSql implements DAO<Like> {
             stm.execute();
         } catch (SQLException e) {
             System.out.println("duplicate entry");
+        }
+    }
+
+    public void clearCheckedTable(){
+        try {
+            String sql = "DELETE FROM checked WHERE userId = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, userId);
+            stm.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

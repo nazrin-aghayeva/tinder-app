@@ -1,7 +1,7 @@
 package org.tinder.app;
 
 import org.tinder.app.db.DbConnection;
-import org.tinder.app.filters.LoginStatusFilter;
+import org.tinder.app.filters.StatusFilter;
 import org.tinder.app.filters.RegistrationFilter;
 import org.tinder.app.flyway.DbSetup;
 import org.tinder.app.servlets.*;
@@ -13,7 +13,7 @@ import org.eclipse.jetty.server.handler.HandlerCollection;
 import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import org.tinder.app.utils.ResourceHandlerGenerator;
+import org.tinder.app.utils.ResourcesHandler;
 
 import java.sql.Connection;
 
@@ -40,9 +40,9 @@ public class App {
 
         ServletContextHandler handler = new ServletContextHandler();
 
-        ResourceHandlerGenerator rhg = new ResourceHandlerGenerator();
+        ResourcesHandler recourceshandler = new ResourcesHandler();
 
-        ContextHandler jsHandler = rhg.generateResourceHandler("src/main/resources/templates/js", "/js");
+        ContextHandler jsHandler = recourceshandler.generateResourceHandler("src/main/resources/templates/js", "/js");
 
         handler.addServlet(new ServletHolder(new LoginServlet(connection)),"/login");
         handler.addServlet(new ServletHolder(new LikesServlet(connection)), "/liked");
@@ -53,7 +53,7 @@ public class App {
         handler.addServlet(new ServletHolder(new UsersServlet(connection)),"/users/*");
         handler.addServlet(new ServletHolder(new LogoutServlet()),"/logout/*");
 
-        handler.addFilter(LoginStatusFilter.class,"/*", EnumSet.of(DispatcherType.INCLUDE,DispatcherType.REQUEST));
+        handler.addFilter(StatusFilter.class,"/*", EnumSet.of(DispatcherType.INCLUDE,DispatcherType.REQUEST));
         HandlerCollection handlerCollection = new HandlerCollection();
 
         handler.addFilter(new FilterHolder(new RegistrationFilter(connection)),"/reg/*", EnumSet.of(DispatcherType.INCLUDE,DispatcherType.REQUEST));

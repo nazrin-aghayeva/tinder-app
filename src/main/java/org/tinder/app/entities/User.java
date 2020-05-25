@@ -5,7 +5,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class User implements Identifiable {
+public class User {
     private int id;
     private String login;
     private String password;
@@ -78,8 +78,4 @@ public class User implements Identifiable {
         this.gender = gender;
     }
 
-    @Override
-    public int getId() {
-        return this.id;
-    }
 }

@@ -50,11 +50,6 @@ public class LikesService {
         return likes.stream().map(e -> daoUsers.get(e.getLikedUserId())).collect(Collectors.toList());
     }
 
-    public void removeLike(Like like){
-        if(likeDao.get(like.getLikedUserId()) != null){
-            likeDao.remove(like.getLikedUserId());
-        }
-    }
 
     public void addLike(Like like){
         if(likeDao.get(like.getLikedUserId()) == null){
@@ -62,18 +57,25 @@ public class LikesService {
         }
     }
 
-    public void addCheckedStatus(int dislikedUserId){
-        likeDao.addCheckedStatus(dislikedUserId);
+    public void removeLike(Like like){
+        if(likeDao.get(like.getLikedUserId()) != null){
+            likeDao.remove(like.getLikedUserId());
+        }
     }
 
-    public User getUserToShow(int activeUserId){
-        User userToShow = daoUsers.getUserToShow(activeUserId);
+    public User getActiveUser(int activeUserId){
+        User userToShow = daoUsers.getActiveUser(activeUserId);
         if(userToShow == null){
             likeDao.clearCheckedTable();
-            return getUserToShow(activeUserId);
+            return getActiveUser(activeUserId);
         }
         return userToShow;
 
     }
+
+    public void addCheckedStatus(int dislikedUserId){
+        likeDao.addCheckedStatus(dislikedUserId);
+    }
+
 
 }
