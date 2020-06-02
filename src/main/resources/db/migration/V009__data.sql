@@ -1,0 +1,16 @@
+DELETE FROM users WHERE id='1';
+DELETE FROM users WHERE id='2';
+DELETE FROM users WHERE id='3';
+DELETE FROM users WHERE id='4';
+DELETE FROM users WHERE id='5';
+DELETE FROM users WHERE id='6';
+DELETE FROM users WHERE id='7';
+DELETE FROM users WHERE id='8';
+DELETE FROM users WHERE id='9';
+DELETE FROM users WHERE id='10';
+DELETE FROM users WHERE id='11';
+DELETE FROM users WHERE id='12';
+DELETE FROM users WHERE id='13';
+DELETE FROM users WHERE id='14';
+DELETE FROM users WHERE id='15';
+DELETE FROM users WHERE id='16';
